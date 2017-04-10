@@ -6,25 +6,13 @@ include:
   - dnsmasq.install
   - dnsmasq.service
 
-dnsmasq_conf:
-  file.managed:
-    - name: {{ dnsmasq.dnsmasq_conf }}
-    - source: {{ salt['pillar.get']('dnsmasq:dnsmasq_conf', 'salt://dnsmasq/templates/dnsmasq.conf') }}
-    - user: root
-    - group: root
-    - mode: 644
-    - template: jinja
-    - require:
-      - sls: dnsmasq.install
-
 dnsmasq_conf_dir:
   file.recurse:
     - name: {{ dnsmasq.dnsmasq_conf_dir }}
-    - source: {{ salt['pillar.get']('dnsmasq:dnsmasq_conf_dir', 'salt://dnsmasq/templates/dnsmasq.d') }}
+    - source: {{ salt['pillar.get']('dnsmasq:dnsmasq_conf_dir', 'salt://dnsmasq/files/dnsmasq.d') }}
     - template: jinja
     - require:
       - sls: dnsmasq.install
-{%- endif %}
 
 dnsmasq_hosts:
   file.managed:
@@ -47,6 +35,22 @@ dnsmasq_cnames:
     - group: root
     - mode: 644
     - template: jinja
+    - require:
+      - sls: dnsmasq.install
+      - file: dnsmasq_conf_dir
+    - watch_in:
+      - service: dnsmasq
+
+dnsmasq_conf:
+  file.managed:
+    - name: {{ dnsmasq.dnsmasq_conf }}
+    - source: {{ salt['pillar.get']('dnsmasq:dnsmasq_conf', 'salt://dnsmasq/templates/dnsmasq.conf') }}
+    - user: root
+    - group: root
+    - mode: 644
+    - template: jinja
+    - context:
+      addn_hosts: {{ dnsmasq.dnsmasq_hosts }}
     - require:
       - sls: dnsmasq.install
     - watch_in:
