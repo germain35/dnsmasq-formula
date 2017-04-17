@@ -6,6 +6,6 @@
 {%- else %}
 {%- for host, ip in hosts|dictsort %}
 {{ ip }} {{ host }}.{{ zone }}
-{%- endfor -%}
+{%- endfor %}
 {%- endif %}
-{% endfor -%}
+{%- endfor %}
