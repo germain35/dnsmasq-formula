@@ -23,4 +23,4 @@
       'dnsmasq_hosts': '/etc/dnsmasq.hosts',
       'dnsmasq_cnames': '/etc/dnsmasq.d/cnames.conf',
     },
-}, grain='os_family', merge=salt['pillar.get']('dnsmasq:lookup'), default='Debian') %}
+}, grain='os_family', merge=salt['pillar.get']('dnsmasq'), default='Debian') %}
