@@ -1,5 +1,5 @@
 dnsmasq:
-  settings:
+  config:
     domain-needed: True
     bogus-priv: True
     expand-hosts: True
