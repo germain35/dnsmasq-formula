@@ -35,7 +35,7 @@ dnsmasq_cnames_file:
     - template: jinja
     - require:
       - sls: dnsmasq.install
-      - file: conf_dir
+      - file: dnsmasq_conf_dir
     - watch_in:
       - service: dnsmasq_service
 
