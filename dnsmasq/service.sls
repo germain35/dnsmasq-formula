@@ -5,7 +5,7 @@
 include:
   - dnsmasq.install
 
-dnsmasq:
+dnsmasq_service:
   service.running:
     - name: {{ dnsmasq.service }}
     - enable: True
