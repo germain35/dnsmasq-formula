@@ -1,4 +1,6 @@
 dnsmasq:
+  default:
+    DNSMASQ_EXCEPT: lo
   config:
     domain-needed: True
     bogus-priv: True
@@ -12,12 +14,10 @@ dnsmasq:
     dhcp-boot: pxelinux.0
     cache-size: 256
     interface:
-      - lo
       - eth0
     domain: domain.fr
     local: /domain.fr/
     listen-address:
-      - 127.0.0.1
       - 192.168.1.254
     dhcp-range: 
       - eth0,192.168.1.20,192.168.1.99,12h

@@ -6,6 +6,18 @@ include:
   - dnsmasq.install
   - dnsmasq.service
 
+dnsmasq_default_file:
+  file.managed:
+    - name: {{ dnsmasq.default_file }}
+    - source: salt://dnsmasq/templates/default
+    - user: root
+    - mode: 644
+    - template: jinja
+    - require:
+      - sls: dnsmasq.install
+    - watch_in:
+      - service: dnsmasq_service
+
 dnsmasq_conf_dir:
   file.recurse:
     - name: {{ dnsmasq.conf_dir }}
